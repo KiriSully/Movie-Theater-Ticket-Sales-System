@@ -1,0 +1,58 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class CinemaService {
+
+    private SeatManager seatManager;
+    private List<String> bookingHistory = new ArrayList<>();
+
+    public CinemaService(SeatManager seatManager) {
+        this.seatManager = seatManager;
+    }
+
+    // BookTicket
+    public void bookTicket(int ticketId) {
+        Ticket ticket = seatManager.findTicketById(ticketId);
+
+        if (ticket != null && ticket.getStatus().equals("AVAILABLE")) {
+            ticket.setStatus("BOOKED");
+            bookingHistory.add("Ticket " + ticketId + " booked.");
+            System.out.println("Квиток успішно заброньовано.");
+        } else {
+            System.out.println("Квиток недоступний.");
+        }
+    }
+
+    // PayForTicket
+    public void payForTicket(int ticketId) {
+        Ticket ticket = seatManager.findTicketById(ticketId);
+
+        if (ticket != null && ticket.getStatus().equals("BOOKED")) {
+            ticket.setStatus("PAID");
+            bookingHistory.add("Ticket " + ticketId + " paid.");
+            System.out.println("Квиток оплачено.");
+        } else {
+            System.out.println("Оплата неможлива.");
+        }
+    }
+
+    // CancelBooking
+    public void cancelBooking(int ticketId) {
+        Ticket ticket = seatManager.findTicketById(ticketId);
+
+        if (ticket != null && ticket.getStatus().equals("BOOKED")) {
+            ticket.setStatus("AVAILABLE");
+            bookingHistory.add("Ticket " + ticketId + " canceled.");
+            System.out.println("Бронювання скасовано.");
+        } else {
+            System.out.println("Скасування неможливе.");
+        }
+    }
+
+    public void showHistory() {
+        System.out.println("Історія операцій:");
+        for (String record : bookingHistory) {
+            System.out.println(record);
+        }
+    }
+}
