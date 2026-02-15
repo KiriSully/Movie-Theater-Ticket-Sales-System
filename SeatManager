@@ -1,0 +1,35 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class SeatManager {
+    private List<Ticket> tickets = new ArrayList<>();
+
+    public SeatManager() {
+        for (int i = 1; i <= 10; i++) {
+            tickets.add(new Ticket(i, "Avatar 2", i));
+        }
+    }
+
+    public List<Ticket> getAvailableTickets() {
+        List<Ticket> available = new ArrayList<>();
+        for (Ticket ticket : tickets) {
+            if (ticket.getStatus().equals("AVAILABLE")) {
+                available.add(ticket);
+            }
+        }
+        return available;
+    }
+
+    public Ticket findTicketById(int id) {
+        for (Ticket ticket : tickets) {
+            if (ticket.getId() == id) {
+                return ticket;
+            }
+        }
+        return null;
+    }
+
+    public List<Ticket> getAllTickets() {
+        return tickets;
+    }
+}
