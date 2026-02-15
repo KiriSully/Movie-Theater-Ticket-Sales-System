@@ -1,0 +1,23 @@
+public class Main {
+    public static void main(String[] args) {
+
+        SeatManager seatManager = new SeatManager();
+        CinemaService cinemaService = new CinemaService(seatManager);
+
+        System.out.println("Доступні квитки:");
+        for (Ticket ticket : seatManager.getAvailableTickets()) {
+            System.out.println(ticket);
+        }
+
+        cinemaService.bookTicket(1);
+        cinemaService.payForTicket(1);
+        cinemaService.cancelBooking(2);
+
+        cinemaService.showHistory();
+
+        System.out.println("Список усіх квитків:");
+        for (Ticket ticket : seatManager.getAllTickets()) {
+            System.out.println(ticket);
+        }
+    }
+}
